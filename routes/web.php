@@ -17,14 +17,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
-
+//Front End Routes
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/about', 'AboutController@index')->name('about');
+
+//Login and Registration Routes
+Auth::routes();
+Route::get('/signup/{role_id}', 'Auth\RegisterController@index')->name('signup');
 
 
-
+//User Routes
 Route::prefix('admin')->name('admin.')->middleware('can:manage-users')->group(function(){
     Route::resource('/users','UsersController',['except'=>['show','create','store']]);
 });
 
-//Test Git

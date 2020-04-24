@@ -42,6 +42,11 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    public function index($role_id)
+    {
+        return view('auth.register')->with('role_id', $role_id);
+    }
+
     /**
      * Get a validator for an incoming registration request.
      *
@@ -66,14 +71,18 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $user = User::create([
-            'name' => $data['name'],
+            'role_id' => $data['role_id'],
+            'name' => $data['first_name'],
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
             'email' => $data['email'],
+            'phone_no' =>$data['phone_no'],
             'password' => Hash::make($data['password']),
         ]);
-        $name = 'donor';
-        $role = Role::select('id')->where('name', $name)->first();
+        $role_id = $data['role_id'];
+        $role_id = Role::select('id')->where('id', $role_id)->first();
 
-        $user->roles()->attach($role);
+        $user->roles()->attach($role_id);
 
         return $user;
     }

@@ -70,9 +70,14 @@
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
                     @else
+                        <a href="{{ route('about') }}">about</a>
                         <a href="{{ route('login') }}">Login</a>
 
                         @if (Route::has('register'))
+                            <a href="{{ route('signup', 2) }}">Donor</a>
+                            <a href="{{ route('signup', 3) }}">Organization</a>
+                            <a href="{{ route('signup', 4) }}">Volunteer</a>
+                            <a href="{{ route('signup', 5) }}">Help Seeker</a>
                             <a href="{{ route('register') }}">Register</a>
                         @endif
                     @endauth
